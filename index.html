@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Nash · Brand & Culture Storytelling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #121110;
+    --panel: #191715;
+    --panel-hover: #211e1b;
+    --ink: #f3efe8;
+    --muted: #948b80;
+    --muted-dim: #6d655c;
+    --accent: #c1502e;
+    --line: rgba(255,255,255,0.08);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .app {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+    z-index: 20;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand .mark {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+    overflow: hidden;
+  }
+  .brand .mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .brand .titles { line-height: 1.25; }
+  .brand .titles .t1 { font-size: 14px; font-weight: 600; }
+  .brand .titles .t2 {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .edit-toggle {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 9px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .edit-toggle.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .menu-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 16px;
+  }
+  .topbar-left { display: flex; align-items: center; }
+  .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 15;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 64px; bottom: 0; left: 0;
+    width: 280px;
+    overflow-y: auto;
+    padding: 28px 14px 28px;
+    border-right: 1px solid var(--line);
+  }
+  .sidebar .progress {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted-dim);
+    padding: 0 12px 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 14px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 2px;
+  }
+  .nav-item:hover { background: var(--panel-hover); }
+  .nav-item.active { background: var(--panel); border: 1px solid var(--line); }
+  .nav-item .num {
+    font-size: 10px;
+    color: var(--muted-dim);
+    min-width: 18px;
+  }
+  .nav-item.active .num { color: var(--accent); }
+  .nav-item .labels { flex: 1; min-width: 0; }
+  .nav-item .n1 {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-item.active .n1 { color: var(--accent); }
+  .nav-item .n2 {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted-dim);
+  }
+  .nav-item .del-x {
+    display: none;
+    color: var(--muted-dim);
+    font-size: 14px;
+    padding: 2px 6px;
+  }
+  .nav-item .del-x:hover { color: var(--accent); }
+  body.editing .nav-item .del-x { display: block; }
+  .add-section-nav {
+    display: none;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px dashed var(--line);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  }
+  body.editing .add-section-nav { display: block; }
+
+  /* Main */
+  .main {
+    margin-left: 280px;
+    margin-top: 64px;
+    flex: 1;
+    padding: 64px 56px 100px;
+    max-width: 980px;
+  }
+  .chapter-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .chapter-title {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin: 0 0 22px;
+    max-width: 760px;
+  }
+  .chapter-quote {
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding-left: 18px;
+    margin: 0 0 40px;
+    max-width: 620px;
+  }
+  .section-toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 22px;
+  }
+  .add-card-btn {
+    display: none;
+    font-size: 11.5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  body.editing .add-card-btn { display: inline-block; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 22px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .media-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #0c0a09;
+    cursor: pointer;
+  }
+  .media-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .play-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 30% 20%, #2a221c, #0c0a09);
+  }
+  .play-circle {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .media-frame:hover .play-circle { background: var(--accent); transform: scale(1.08); }
+  .play-circle svg { margin-left: 3px; }
+  .no-embed-note {
+    position: absolute; bottom: 10px; left: 0; right: 0;
+    text-align: center; font-size: 10.5px; color: var(--muted-dim);
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 17.5px; line-height: 1.35; margin: 0 0 8px; color: var(--ink); }
+  .card p { font-size: 13.5px; color: var(--muted); margin: 0 0 18px; line-height: 1.6; }
+  .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+  a.ext-link {
+    font-size: 11.5px; letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--accent); text-decoration: none; font-weight: 600;
+  }
+  a.ext-link:hover { text-decoration: underline; }
+  .card-controls { display: none; gap: 8px; }
+  body.editing .card-controls { display: flex; }
+  .card-controls button {
+    font-size: 11px; background: none; border: none; cursor: pointer;
+    color: var(--muted); padding: 2px 4px;
+  }
+  .card-controls button:hover { color: var(--accent); }
+  .empty-note { font-size: 13px; color: var(--muted-dim); font-style: italic; }
+
+  /* Contact chapter */
+  .contact-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .contact-card .portrait {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--accent);
+  }
+  .contact-card .rows { flex: 1; min-width: 200px; }
+  .contact-card .row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .contact-card .row:last-child { border-bottom: none; }
+  .contact-card .row .k {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted-dim); min-width: 70px;
+  }
+  .contact-card .row a { color: var(--ink); text-decoration: none; }
+  .contact-card .row a:hover { color: var(--accent); }
+
+  @media (max-width: 860px) {
+    .menu-toggle { display: inline-block; }
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      z-index: 25;
+      background: var(--bg);
+      width: 260px;
+    }
+    body.sidebar-open .sidebar { transform: translateX(0); }
+    body.sidebar-open .sidebar-backdrop { display: block; }
+    .main { margin-left: 0; padding: 32px 20px 80px; }
+    .chapter-title { font-size: 30px; }
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    align-items: center; justify-content: center;
+    z-index: 100; padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 32px;
+    width: 100%;
+    max-width: 440px;
+    color: var(--ink);
+  }
+  .modal h3 { margin: 0 0 20px; font-family: 'Fraunces', Georgia, serif; font-weight: 400; font-size: 22px; }
+  .modal label {
+    display: block; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 6px; margin-top: 16px;
+  }
+  .modal input, .modal textarea {
+    width: 100%; padding: 10px 12px;
+    background: var(--bg);
+    border: 1px solid var(--line); border-radius: 6px;
+    font-size: 14px; color: var(--ink); font-family: inherit;
+  }
+  .modal textarea { resize: vertical; min-height: 60px; }
+  .modal .hint { font-size: 11px; color: var(--muted-dim); margin-top: 6px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 28px; }
+  .modal-actions button {
+    font-size: 13px; padding: 10px 18px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--line); background: transparent; color: var(--ink);
+  }
+  .modal-actions .primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+    <div class="brand">
+      <div class="mark"><img src="nash-photo.png" alt="Nash"></div>
+      <div class="titles">
+        <div class="t1">Nash</div>
+        <div class="t2">Brand & Culture Storytelling</div>
+      </div>
+    </div>
+  </div>
+  <button class="edit-toggle" id="editToggle">Edit Mode: Off</button>
+</div>
+
+<div class="app">
+  <div class="sidebar" id="sidebar">
+    <div class="progress" id="progressLabel">SECTIONS</div>
+    <div id="navList"></div>
+    <button class="add-section-nav" id="addSectionBtn">+ Add Section</button>
+  </div>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <div class="main" id="mainArea"></div>
+</div>
+
+<!-- Add/Edit Card Modal -->
+<div class="modal-overlay" id="cardModal">
+  <div class="modal">
+    <h3 id="cardModalTitle">Add Video</h3>
+    <label>Title</label>
+    <input type="text" id="fieldTitle" placeholder="e.g. Summer Recap Reel">
+    <label>Description</label>
+    <textarea id="fieldDesc" placeholder="Short one or two sentence description"></textarea>
+    <label>Link</label>
+    <input type="text" id="fieldLink" placeholder="https://drive.google.com/file/d/.../view">
+    <div class="hint">Paste a Google Drive share link and the video will play right on the page. Other links show as a "Watch" button instead.</div>
+    <div class="modal-actions">
+      <button id="cardCancel">Cancel</button>
+      <button class="primary" id="cardSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Section Modal -->
+<div class="modal-overlay" id="sectionModal">
+  <div class="modal">
+    <h3>Add Section</h3>
+    <label>Section Name</label>
+    <input type="text" id="fieldSectionName" placeholder="e.g. Client Testimonials">
+    <label>Subtitle</label>
+    <input type="text" id="fieldSectionSub" placeholder="e.g. REELS">
+    <div class="modal-actions">
+      <button id="sectionCancel">Cancel</button>
+      <button class="primary" id="sectionSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'pgVideoPortfolioDataV2';
+
+  const defaultData = {
+    contact: { name: "Nash", email: "naseemsultan2019@gmail.com", phone: "092411231580" },
+    intro: {
+      title: "Hey, I'm Nash — welcome in.",
+      quote: "a few things I've worked on.",
+      body: "This is a small collection of video work I've put together for teams and brands — reels, process videos, and a few personal projects along the way. Everything here is real work, organized by type so it's easy to look through. Take your time, and if anything here feels relevant to what you're working on, I'd love to hear from you."
+    },
+    sections: [
+      {
+        name: "Brand & Team Culture Reels",
+        sub: "REELS",
+        title: "This is the work that tells your team's story.",
+        quote: "your team's culture is already the content.",
+        items: [
+          { title: "Why We Do This", desc: "A heartfelt reel introducing a remote team and the personal connection each member has to their work.", link: "https://drive.google.com/file/d/1zUQThVCtYGI86fbfa3e2DURcJ98OngsY/view?usp=drive_link" },
+          { title: "Beyond the Call", desc: "A brand story showcasing how a support team listens, builds trust, and shows up for every customer interaction.", link: "https://drive.google.com/file/d/1evJhamT_Wex0-Yk-DQjaHv2IceMnra03/view?usp=drive_link" },
+          { title: "This Is Our Why", desc: "A remote-work culture piece on freedom, family, and purpose behind a distributed team.", link: "https://drive.google.com/file/d/1B5FUiVYMjtpqZTTwjtU6-k_RyoWU_MTD/view?usp=drive_link" },
+          { title: "Top From Home – Reel", desc: "A short-form reel highlighting a team's work-from-home culture.", link: "https://drive.google.com/file/d/11RIezMBSBnbEGPyCHPBM1hsUn-7fsHzD/view?usp=sharing" },
+          { title: "Built Different", desc: "A ~90-second brand reel positioning a support team as an accountable, invested presence for every customer.", link: "https://drive.google.com/file/d/1THJEEjSHJIkTTP3qBscp1kBAhjXDz2Ux/view?usp=sharing" }
+        ]
+      },
+      {
+        name: "Training & Educational Videos",
+        sub: "TRAINING",
+        title: "Clear, simple training videos that make learning easy.",
+        quote: "clarity is the whole job.",
+        items: [
+          { title: "Internal Workflow Walkthrough", desc: "A clear, step-by-step process video simplifying a day-to-day operations workflow for a distributed team.", link: "https://drive.google.com/file/d/1B6fL6e9C3UMMgTQhkeucLkl3LuJ_qWuf/view?usp=drive_link" },
+          { title: "Cattle Creek", desc: "A training video walking through the layout and key features of a golf course.", link: "https://drive.google.com/file/d/1uoJLNh7EhPOnnHwsBJDVZpPRBi80RWBE/view?usp=drive_link" },
+          { title: "Games of Golf", desc: "An easy-to-follow training video covering different golf game formats.", link: "https://drive.google.com/file/d/1gGiY_ivGqq2p5f77VgZu-8SWn5rqKRLU/view?usp=drive_link" },
+          { title: "Golf 101: Parts of a Golf Course", desc: "A beginner-friendly training video breaking down the parts of a golf course.", link: "https://drive.google.com/file/d/1ZbyZoJfOYKHQsqsWz2tXISo_f8mtGtcU/view?usp=drive_link" },
+          { title: "Program Overview", desc: "A training video introducing a golf coaching program for new team members.", link: "https://drive.google.com/file/d/1LBwmTzAhf2M806M1czJ36G3wSecdGdZz/view?usp=drive_link" }
+        ]
+      },
+      {
+        name: "Celebration & Occasion Videos",
+        sub: "MOMENTS",
+        title: "Small moments, made to feel bigger.",
+        quote: "the personal touches are what people remember.",
+        items: [
+          { title: "Birthday Video", desc: "A personalized birthday video produced for a team member.", link: "https://drive.google.com/file/d/18ww1__QCKUcJkGeIeBFeK800O9OXkq8t/view?usp=sharing" },
+          { title: "Mother's Day", desc: "A tribute video created to celebrate Mother's Day across a team.", link: "https://drive.google.com/file/d/1Ap37ks0hfuoNjIgC8bB7mxE0ymDWMhhu/view?usp=sharing" }
+        ]
+      }
+    ]
+  };
+
+  function loadData() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return JSON.parse(JSON.stringify(defaultData));
+  }
+  function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+
+  function getDriveEmbed(link) {
+    const m = link.match(/drive\.google\.com\/file\/d\/([^\/]+)/);
+    if (m) return 'https://drive.google.com/file/d/' + m[1] + '/preview';
+    return null;
+  }
+
+  let data = loadData();
+  let editing = false;
+  let activeIndex = 'intro'; // 'intro' = start here, -1 = contact, number = section index
+  let modalContext = null;
+
+  const navList = document.getElementById('navList');
+  const mainArea = document.getElementById('mainArea');
+  const editToggle = document.getElementById('editToggle');
+  const cardModal = document.getElementById('cardModal');
+  const sectionModal = document.getElementById('sectionModal');
+  const sidebarEl = document.getElementById('sidebar');
+  const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+  const menuToggle = document.getElementById('menuToggle');
+
+  function goTo(idx) {
+    activeIndex = idx;
+    render();
+    document.body.classList.remove('sidebar-open');
+  }
+
+  function renderNav() {
+    navList.innerHTML = '';
+
+    const introItem = document.createElement('div');
+    introItem.className = 'nav-item' + (activeIndex === 'intro' ? ' active' : '');
+    introItem.innerHTML =
+      '<div class="num">00</div>' +
+      '<div class="labels"><div class="n1">Start Here</div><div class="n2">INTRO</div></div>';
+    introItem.onclick = () => goTo('intro');
+    navList.appendChild(introItem);
+
+    data.sections.forEach((section, idx) => {
+      const item = document.createElement('div');
+      item.className = 'nav-item' + (activeIndex === idx ? ' active' : '');
+      item.innerHTML =
+        '<div class="num">' + String(idx + 1).padStart(2, '0') + '</div>' +
+        '<div class="labels"><div class="n1">' + escapeHtml(section.name) + '</div><div class="n2">' + escapeHtml(section.sub || '') + '</div></div>' +
+        '<div class="del-x" title="Delete section">✕</div>';
+      item.querySelector('.labels').onclick = () => goTo(idx);
+      item.querySelector('.num').onclick = () => goTo(idx);
+      item.querySelector('.del-x').onclick = (e) => {
+        e.stopPropagation();
+        if (confirm('Delete section "' + section.name + '" and all its videos?')) {
+          data.sections.splice(idx, 1);
+          if (typeof activeIndex === 'number' && activeIndex >= data.sections.length) activeIndex = data.sections.length - 1;
+          saveData(); render();
+        }
+      };
+      navList.appendChild(item);
+    });
+
+    const contactItem = document.createElement('div');
+    contactItem.className = 'nav-item' + (activeIndex === -1 ? ' active' : '');
+    contactItem.innerHTML =
+      '<div class="num">' + String(data.sections.length + 1).padStart(2, '0') + '</div>' +
+      '<div class="labels"><div class="n1">Get In Touch</div><div class="n2">CONTACT</div></div>';
+    contactItem.onclick = () => goTo(-1);
+    navList.appendChild(contactItem);
+
+    document.getElementById('progressLabel').textContent = data.sections.length + ' SECTION' + (data.sections.length === 1 ? '' : 'S');
+  }
+
+  function escapeHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
+  function renderMain() {
+    mainArea.innerHTML = '';
+
+    if (activeIndex === 'intro') {
+      const label = document.createElement('div');
+      label.className = 'chapter-label';
+      label.textContent = 'CHAPTER 00 · INTRO';
+      const title = document.createElement('h1');
+      title.className = 'chapter-title';
+      title.textContent = data.intro.title;
+      const quote = document.createElement('div');
+      quote.className = 'chapter-quote';
+      quote.textContent = data.intro.quote;
+      const body = document.createElement('p');
+      body.style.maxWidth = '620px';
+      body.style.fontSize = '15px';
+      body.style.color = 'var(--muted)';
+      body.style.lineHeight = '1.7';
+      body.textContent = data.intro.body;
+
+      mainArea.appendChild(label);
+      mainArea.appendChild(title);
+      mainArea.appendChild(quote);
+      mainArea.appendChild(body);
+      return;
+    }
+
+    if (activeIndex === -1) {
+      const label = document.createElement('div');
+      label.className = 'chapter-label';
+      label.textContent = 'CONTACT';
+      const title = document.createElement('h1');
+      title.className = 'chapter-title';
+      title.textContent = "Let's work together.";
+      const quote = document.createElement('div');
+      quote.className = 'chapter-quote';
+      quote.textContent = 'reach out any time — happy to talk through a project.';
+
+      const card = document.createElement('div');
+      card.className = 'contact-card';
+      card.innerHTML =
+        '<img class="portrait" src="nash-photo.png" alt="' + escapeHtml(data.contact.name) + '">' +
+        '<div class="rows">' +
+        '<div class="row"><div class="k">Name</div><div>' + escapeHtml(data.contact.name) + '</div></div>' +
+        '<div class="row"><div class="k">Email</div><a href="mailto:' + escapeHtml(data.contact.email) + '">' + escapeHtml(data.contact.email) + '</a></div>' +
+        '<div class="row"><div class="k">Phone</div><a href="tel:' + escapeHtml(data.contact.phone) + '">' + escapeHtml(data.contact.phone) + '</a></div>' +
+        '</div>';
+
+      const cta = document.createElement('p');
+      cta.style.maxWidth = '480px';
+      cta.style.fontSize = '13.5px';
+      cta.style.color = 'var(--muted-dim)';
+      cta.style.marginTop = '20px';
+      cta.textContent = "Interested in something like this for your own team? Let's talk it through.";
+
+      mainArea.appendChild(label);
+      mainArea.appendChild(title);
+      mainArea.appendChild(quote);
+      mainArea.appendChild(card);
+      mainArea.appendChild(cta);
+      return;
+    }
+
+    const section = data.sections[activeIndex];
+    if (!section) { activeIndex = 0; return renderMain(); }
+
+    const label = document.createElement('div');
+    label.className = 'chapter-label';
+    label.textContent = 'CHAPTER 0' + (activeIndex + 1) + ' · ' + (section.sub || '');
+    const title = document.createElement('h1');
+    title.className = 'chapter-title';
+    title.textContent = section.title || section.name;
+    const quote = document.createElement('div');
+    quote.className = 'chapter-quote';
+    quote.textContent = section.quote || '';
+
+    const toolbar = document.createElement('div');
+    toolbar.className = 'section-toolbar';
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-card-btn';
+    addBtn.textContent = '+ Add Video';
+    addBtn.onclick = () => openCardModal(activeIndex, null);
+    toolbar.appendChild(addBtn);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+
+    section.items.forEach((item, iIdx) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      const embedUrl = getDriveEmbed(item.link);
+      const mediaFrame = document.createElement('div');
+      mediaFrame.className = 'media-frame';
+      const overlay = document.createElement('div');
+      overlay.className = 'play-overlay';
+      overlay.innerHTML = '<div class="play-circle"><svg width="18" height="18" viewBox="0 0 20 20" fill="white"><polygon points="5,3 17,10 5,17"/></svg></div>' +
+        (embedUrl ? '' : '<div class="no-embed-note">Opens in new tab</div>');
+      mediaFrame.appendChild(overlay);
+      mediaFrame.onclick = () => {
+        if (embedUrl) {
+          mediaFrame.innerHTML = '';
+          const iframe = document.createElement('iframe');
+          iframe.src = embedUrl;
+          iframe.allow = 'autoplay; fullscreen';
+          iframe.allowFullscreen = true;
+          mediaFrame.appendChild(iframe);
+        } else {
+          window.open(item.link, '_blank', 'noopener');
+        }
+      };
+
+      const body = document.createElement('div');
+      body.className = 'card-body';
+      const h3 = document.createElement('h3');
+      h3.textContent = item.title;
+      const p = document.createElement('p');
+      p.textContent = item.desc;
+      body.appendChild(h3);
+      body.appendChild(p);
+
+      const footerRow = document.createElement('div');
+      footerRow.className = 'card-footer';
+      const a = document.createElement('a');
+      a.className = 'ext-link';
+      a.href = item.link; a.target = '_blank'; a.rel = 'noopener';
+      a.textContent = 'Open Original →';
+      footerRow.appendChild(a);
+
+      const controls = document.createElement('div');
+      controls.className = 'card-controls';
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Edit';
+      editBtn.onclick = () => openCardModal(activeIndex, iIdx);
+      const delBtn = document.createElement('button');
+      delBtn.textContent = 'Delete';
+      delBtn.onclick = () => {
+        if (confirm('Remove "' + item.title + '"?')) {
+          section.items.splice(iIdx, 1);
+          saveData(); render();
+        }
+      };
+      controls.appendChild(editBtn);
+      controls.appendChild(delBtn);
+      footerRow.appendChild(controls);
+
+      body.appendChild(footerRow);
+      card.appendChild(mediaFrame);
+      card.appendChild(body);
+      grid.appendChild(card);
+    });
+
+    if (section.items.length === 0) {
+      const note = document.createElement('p');
+      note.className = 'empty-note';
+      note.textContent = 'No videos in this section yet.';
+      grid.appendChild(note);
+    }
+
+    mainArea.appendChild(label);
+    mainArea.appendChild(title);
+    if (section.quote) mainArea.appendChild(quote);
+    mainArea.appendChild(toolbar);
+    mainArea.appendChild(grid);
+  }
+
+  function render() { renderNav(); renderMain(); }
+
+  function openCardModal(sIdx, iIdx) {
+    modalContext = { sectionIndex: sIdx, itemIndex: iIdx };
+    const title = document.getElementById('cardModalTitle');
+    const fTitle = document.getElementById('fieldTitle');
+    const fDesc = document.getElementById('fieldDesc');
+    const fLink = document.getElementById('fieldLink');
+    if (iIdx === null) {
+      title.textContent = 'Add Video'; fTitle.value = ''; fDesc.value = ''; fLink.value = '';
+    } else {
+      const item = data.sections[sIdx].items[iIdx];
+      title.textContent = 'Edit Video'; fTitle.value = item.title; fDesc.value = item.desc; fLink.value = item.link;
+    }
+    cardModal.classList.add('open');
+    fTitle.focus();
+  }
+
+  document.getElementById('cardCancel').onclick = () => cardModal.classList.remove('open');
+  document.getElementById('cardSave').onclick = () => {
+    const t = document.getElementById('fieldTitle').value.trim();
+    const d = document.getElementById('fieldDesc').value.trim();
+    const l = document.getElementById('fieldLink').value.trim();
+    if (!t || !l) { alert('Please add at least a title and link.'); return; }
+    const { sectionIndex, itemIndex } = modalContext;
+    if (itemIndex === null) {
+      data.sections[sectionIndex].items.push({ title: t, desc: d, link: l });
+    } else {
+      data.sections[sectionIndex].items[itemIndex] = { title: t, desc: d, link: l };
+    }
+    saveData();
+    cardModal.classList.remove('open');
+    render();
+  };
+
+  document.getElementById('addSectionBtn').onclick = () => {
+    document.getElementById('fieldSectionName').value = '';
+    document.getElementById('fieldSectionSub').value = '';
+    sectionModal.classList.add('open');
+    document.getElementById('fieldSectionName').focus();
+  };
+  document.getElementById('sectionCancel').onclick = () => sectionModal.classList.remove('open');
+  document.getElementById('sectionSave').onclick = () => {
+    const name = document.getElementById('fieldSectionName').value.trim();
+    const sub = document.getElementById('fieldSectionSub').value.trim();
+    if (!name) { alert('Please enter a section name.'); return; }
+    data.sections.push({ name, sub: sub.toUpperCase(), title: name, quote: '', items: [] });
+    saveData();
+    activeIndex = data.sections.length - 1;
+    sectionModal.classList.remove('open');
+    render();
+  };
+
+  menuToggle.onclick = () => { document.body.classList.toggle('sidebar-open'); };
+  sidebarBackdrop.onclick = () => { document.body.classList.remove('sidebar-open'); };
+
+  editToggle.onclick = () => {
+    editing = !editing;
+    document.body.classList.toggle('editing', editing);
+    editToggle.classList.toggle('on', editing);
+    editToggle.textContent = editing ? 'Edit Mode: On' : 'Edit Mode: Off';
+    render();
+  };
+
+  [cardModal, sectionModal].forEach(overlay => {
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+  });
+
+  render();
+</script>
+
+</body>
+</html>
