@@ -1,6 +1,6 @@
 # Nash Sultan — video portfolio
 
-Static portfolio for GitHub Pages. There is no backend and no public edit mode. Visitors all see the same videos, from [`videos.json`](videos.json).
+Static portfolio for GitHub Pages: [naseemsultan2019-maker.github.io/video-portfolio-](https://naseemsultan2019-maker.github.io/video-portfolio-/). There is no backend and no public edit mode. Visitors all see the same videos, from [`videos.json`](videos.json).
 
 Preview locally with a small server (opening the file directly will not load the video list):
 
