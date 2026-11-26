@@ -38,7 +38,7 @@ try {
   if (!response.ok) throw new Error(`videos.json returned ${response.status}`);
   const data = await response.json();
   if (!data || !Array.isArray(data.videos)) throw new Error("videos.json needs a videos array");
-  videos = data.videos.filter((video) => video && typeof video.title === "string");
+  videos = data.videos.filter((video) => video && typeof video.title === "string" && video.placeholder !== true);
   applyContact(data.contact);
   renderShowreel();
   renderFilters();
@@ -82,12 +82,11 @@ function setOptionalLink(selector, url, label) {
   if (!node) return;
   const href = safeUrl(url);
   if (!href) {
-    node.classList.add("is-placeholder");
+    node.hidden = true;
     node.removeAttribute("href");
-    node.textContent = `${label} · placeholder`;
-    node.setAttribute("aria-disabled", "true");
     return;
   }
+  node.hidden = false;
   node.classList.remove("is-placeholder");
   node.href = href;
   node.target = "_blank";
@@ -97,12 +96,13 @@ function setOptionalLink(selector, url, label) {
 }
 
 function categoryList() {
+  const present = CATEGORIES.filter((category) => videos.some((video) => video.category === category));
   const extras = [];
   for (const video of videos) {
     const category = video.category;
     if (category && !CATEGORIES.includes(category) && !extras.includes(category)) extras.push(category);
   }
-  return ["All", ...CATEGORIES, ...extras];
+  return ["All", ...present, ...extras];
 }
 
 function renderFilters() {

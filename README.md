@@ -41,7 +41,7 @@ Then open `http://localhost:8765`.
 | `orientation` | `vertical` for 9:16, `horizontal` for 16:9. |
 | `thumbnail` | Optional image path, such as `thumbs/my-piece.jpg`, or a full image URL. Leave `""` for a plain poster. |
 | `showreel` | `true` on the one film that should sit in the hero. Leave it `true` on only one entry. |
-| `placeholder` | `false` for real work. Sample slots use `true` and are labeled on the page. |
+| `placeholder` | `false` for real work. Entries with `true` stay in this file and are not shown on the site. Set this to `false` when the link is real. |
 
 Categories:
 
@@ -55,15 +55,15 @@ A normal Google Drive share link (`/view` or `?usp=sharing`) is enough. The page
 
 Vertical films keep a 9:16 frame. They are not stretched into a widescreen box.
 
-Contact links live in the `contact` object at the top of `videos.json`. Leave `upwork` or `linkedin` as `""` until you have the real URL.
+Contact links live in the `contact` object at the top of `videos.json`. Leave `upwork` or `linkedin` as `""` until you have the real URL. Empty values are not shown.
 
 ## What still needs a real value
 
-These are marked on the site. Swap them when you have the links:
+These stay in `videos.json` and are hidden on the site until you fill them in:
 
-- `contact.upwork` — your Upwork profile URL
-- `contact.linkedin` — your LinkedIn profile URL
-- Seven sample videos whose titles start with `PLACEHOLDER —` (AI ads, AI twins, claymation, trailers). Delete a slot you do not need, or replace the title, description, tools, and `url`, and set `placeholder` to `false`.
+- `contact.upwork` — your Upwork profile URL. The link appears once this is a real URL.
+- `contact.linkedin` — your LinkedIn profile URL. The link appears once this is a real URL.
+- Seven sample videos whose titles start with `PLACEHOLDER —` (AI ads, AI twins, claymation, trailers). They are skipped while `placeholder` is `true`. Replace the title, description, tools, and `url`, then set `placeholder` to `false`. Delete a slot you do not need.
 
 Already filled from the previous site. Change them in `videos.json` if they are out of date, and update the same email in `index.html` (the contact link and the page metadata):
 

@@ -601,6 +601,10 @@ h2 {
   text-decoration: none;
 }
 
+.contact-list [hidden] {
+  display: none !important;
+}
+
 a.is-placeholder {
   border-style: dashed;
   color: var(--faint);
