@@ -1,0 +1,223 @@
+{
+  "contact": {
+    "name": "Nash Sultan",
+    "email": "naseemsultan2019@gmail.com",
+    "phone": "092411231580",
+    "location": "Philippines",
+    "x": "https://x.com/nashpeppers4",
+    "xHandle": "@nashpeppers4",
+    "upwork": "",
+    "linkedin": ""
+  },
+  "videos": [
+    {
+      "title": "Why We Do This",
+      "description": "A heartfelt reel introducing a remote team and the personal connection each member has to their work.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1zUQThVCtYGI86fbfa3e2DURcJ98OngsY/view?usp=drive_link",
+      "orientation": "vertical",
+      "thumbnail": "thumbs/why-we-do-this.jpg",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "Beyond the Call",
+      "description": "A brand story showcasing how a support team listens, builds trust, and shows up for every customer interaction.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1evJhamT_Wex0-Yk-DQjaHv2IceMnra03/view?usp=drive_link",
+      "orientation": "vertical",
+      "thumbnail": "",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "This Is Our Why",
+      "description": "A remote-work culture piece on freedom, family, and purpose behind a distributed team.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1B5FUiVYMjtpqZTTwjtU6-k_RyoWU_MTD/view?usp=drive_link",
+      "orientation": "vertical",
+      "thumbnail": "thumbs/this-is-our-why.jpg",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "Top From Home – Reel",
+      "description": "A short-form reel highlighting a team's work-from-home culture.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/11RIezMBSBnbEGPyCHPBM1hsUn-7fsHzD/view?usp=sharing",
+      "orientation": "vertical",
+      "thumbnail": "",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "Built Different",
+      "description": "A ~90-second brand reel positioning a support team as an accountable, invested presence for every customer.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1THJEEjSHJIkTTP3qBscp1kBAhjXDz2Ux/view?usp=sharing",
+      "orientation": "vertical",
+      "thumbnail": "thumbs/built-different.jpg",
+      "showreel": true,
+      "placeholder": false
+    },
+    {
+      "title": "Internal Workflow Walkthrough",
+      "description": "A clear, step-by-step process video simplifying a day-to-day operations workflow for a distributed team.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1B6fL6e9C3UMMgTQhkeucLkl3LuJ_qWuf/view?usp=drive_link",
+      "orientation": "horizontal",
+      "thumbnail": "thumbs/internal-workflow.jpg",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "Cattle Creek",
+      "description": "A training video walking through the layout and key features of a golf course.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1uoJLNh7EhPOnnHwsBJDVZpPRBi80RWBE/view?usp=drive_link",
+      "orientation": "horizontal",
+      "thumbnail": "thumbs/cattle-creek.jpg",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "Games of Golf",
+      "description": "An easy-to-follow training video covering different golf game formats.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1gGiY_ivGqq2p5f77VgZu-8SWn5rqKRLU/view?usp=drive_link",
+      "orientation": "horizontal",
+      "thumbnail": "thumbs/games-of-golf.jpg",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "Golf 101: Parts of a Golf Course",
+      "description": "A beginner-friendly training video breaking down the parts of a golf course.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1ZbyZoJfOYKHQsqsWz2tXISo_f8mtGtcU/view?usp=drive_link",
+      "orientation": "horizontal",
+      "thumbnail": "thumbs/golf-101.jpg",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "Program Overview",
+      "description": "A training video introducing a golf coaching program for new team members.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1LBwmTzAhf2M806M1czJ36G3wSecdGdZz/view?usp=drive_link",
+      "orientation": "horizontal",
+      "thumbnail": "thumbs/program-overview.jpg",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "Birthday Video",
+      "description": "A personalized birthday video produced for a team member.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/18ww1__QCKUcJkGeIeBFeK800O9OXkq8t/view?usp=sharing",
+      "orientation": "horizontal",
+      "thumbnail": "thumbs/birthday.jpg",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "Mother's Day",
+      "description": "A tribute video created to celebrate Mother's Day across a team.",
+      "category": "Brand & Explainer",
+      "tools": [],
+      "url": "https://drive.google.com/file/d/1Ap37ks0hfuoNjIgC8bB7mxE0ymDWMhhu/view?usp=sharing",
+      "orientation": "horizontal",
+      "thumbnail": "thumbs/mothers-day.jpg",
+      "showreel": false,
+      "placeholder": false
+    },
+    {
+      "title": "PLACEHOLDER — AI Product Reel",
+      "description": "Sample slot for a 9:16 product or offer reel. Replace this entry in videos.json. This is not a finished client piece.",
+      "category": "AI Ads & Reels",
+      "tools": ["Higgsfield", "Kling", "Final Cut Pro"],
+      "url": "",
+      "orientation": "vertical",
+      "thumbnail": "",
+      "showreel": false,
+      "placeholder": true
+    },
+    {
+      "title": "PLACEHOLDER — Paid Social Ad",
+      "description": "Sample slot for a widescreen paid social ad. Replace this entry in videos.json. This is not a finished client piece.",
+      "category": "AI Ads & Reels",
+      "tools": ["Google Flow/Veo", "Final Cut Pro"],
+      "url": "",
+      "orientation": "horizontal",
+      "thumbnail": "",
+      "showreel": false,
+      "placeholder": true
+    },
+    {
+      "title": "PLACEHOLDER — Founder AI Twin",
+      "description": "Sample slot for a vertical talking-avatar or founder video. Replace this entry in videos.json. This is not a finished client piece.",
+      "category": "AI Twins & Talking Avatars",
+      "tools": ["ElevenLabs", "Kling", "Final Cut Pro"],
+      "url": "",
+      "orientation": "vertical",
+      "thumbnail": "",
+      "showreel": false,
+      "placeholder": true
+    },
+    {
+      "title": "PLACEHOLDER — Spokesperson Avatar",
+      "description": "Sample slot for a widescreen spokesperson or AI twin. Replace this entry in videos.json. This is not a finished client piece.",
+      "category": "AI Twins & Talking Avatars",
+      "tools": ["ElevenLabs", "Google Flow/Veo", "Final Cut Pro"],
+      "url": "",
+      "orientation": "horizontal",
+      "thumbnail": "",
+      "showreel": false,
+      "placeholder": true
+    },
+    {
+      "title": "PLACEHOLDER — Claymation Brand Spot",
+      "description": "Sample slot for a claymation or stylized brand film. Replace this entry in videos.json. This is not a finished client piece.",
+      "category": "Claymation & Stylized",
+      "tools": ["Midjourney", "Kling", "Final Cut Pro"],
+      "url": "",
+      "orientation": "horizontal",
+      "thumbnail": "",
+      "showreel": false,
+      "placeholder": true
+    },
+    {
+      "title": "PLACEHOLDER — Cinematic Trailer",
+      "description": "Sample slot for a widescreen trailer. Replace this entry in videos.json. This is not a finished client piece.",
+      "category": "Trailers & Cinematic",
+      "tools": ["Seedance", "Suno", "Final Cut Pro"],
+      "url": "",
+      "orientation": "horizontal",
+      "thumbnail": "",
+      "showreel": false,
+      "placeholder": true
+    },
+    {
+      "title": "PLACEHOLDER — Vertical Teaser",
+      "description": "Sample slot for a 9:16 teaser. Replace this entry in videos.json. This is not a finished client piece.",
+      "category": "Trailers & Cinematic",
+      "tools": ["Seedance", "Midjourney", "Final Cut Pro"],
+      "url": "",
+      "orientation": "vertical",
+      "thumbnail": "",
+      "showreel": false,
+      "placeholder": true
+    }
+  ]
+}
